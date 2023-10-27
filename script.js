@@ -70,8 +70,8 @@ keys.addEventListener('click', e => {
 
 const calculate = (n1,operator,n2) => {
     result = ''
-    // n1 = parseFloat(n1)
-    // n2 = parseFloat(n2)
+    n1 = parseFloat(n1)
+    n2 = parseFloat(n2)
     if (operator === 'add') {
         result = n1 + n2
     }
