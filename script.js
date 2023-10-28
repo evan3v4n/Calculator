@@ -71,15 +71,26 @@ keys.addEventListener('click', e => {
             calculator.dataset.previousKeyType = 'decimal'
         }
 
-        if (
-            action === 'clear' || 
-            previousKeyType == 'calculate'
-            ) {
+        if (action === 'clear') {
             console.log("Clear key!")
-
+            if (key.textContent === 'AC') {
+                calculator.dataset.firstValue = ''
+                calculator.dataset.secondValue = ''
+                calculator.dataset.operator = ''
+                calculator.dataset.modValue = ''
+            } else {
+            key.textContent = 'AC'
+            }
+            display.textContent = 0
             calculator.dataset.previousKeyType = 'clear'
         }
 
+        if (action !== 'clear') {
+            const clearButton = calculator.querySelector('[data-action=clear]')
+            clearButton.text = 'CE'
+        }
+
+        
         if (action === 'calculate') {
             console.log("Equals key!")
 
@@ -101,31 +112,20 @@ keys.addEventListener('click', e => {
             calculator.dataset.previousKeyType = 'calculate'
 
         }
-    Array.from(key.parentNode.children)
+        Array.from(key.parentNode.children)
         .forEach( k => k.classList.remove('is-depressed'))
     }
 })
 
 const calculate = (n1,operator,n2) => {
-    let result = ''
     n1 = parseFloat(n1)
     n2 = parseFloat(n2)
-
-    if (operator === 'add') {
-        result = n1 + n2
-    }
-    else if (operator === 'subtract') {
-        result = n1 - n2
-    }
-    else if (operator === 'divide') {
-        result = n1 / n2
-    }
-    else if (operator === 'multiply') {
-        result = n1 * n2
-    }
-
+    
     //Testing
-    console.log(`n1: ${n1}, operator: ${operator}, n2: ${n2}`);
+    console.log(`n1: ${n1}, operator: ${operator}, n2: ${n2}`)
 
-    return result
+    if (operator === 'add') return n1 + n2
+    if (operator === 'subtract') return n1 - n2
+    if (operator === 'divide') return n1 / n2
+    if (operator === 'multiply') return n1 * n2
     }
